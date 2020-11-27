@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Hotspot Login</title>
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="expires" content="-1" />	
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+<link rel="stylesheet" href="login.css" media="screen">
+<script src="jquery.min.js"></script>
+<script type='text/javascript' src='gen_validator.js'></script>
+			  
+</head>
+
+<body class='login'>
+
+	<form class="vertical-form" id="frmlogin"  action="http://192.168.30.21/monitoring/resto" method="post">
+		<input type="hidden" name="dst" value="$(link-orig)" />
+		<input type="hidden" name="mac" value="$(mac)" />
+		<div style="margin:0;padding:0;display:inline"></div>
+		<legend class="legend">
+			<img class="logo" src="logo.png" />
+			Client Login </br>
+			<span id='frmlogin_uname_errorloc' class='error'></span> </br>
+			<span id='frmlogin_uphone_errorloc' class='error'></span>
+		</legend>
+
+		<input name="uname" id="uname" type="text" value="" placeholder="Name" size="30" />
+		<input name="uphone" id="uphone" type="text" value="" placeholder="Phone Number" maxlength="12" onkeydown="validateNumber(event);"/>
+		<input type="submit" id="btn_login" value="Login"/>
+
+	</form>
+
+</body>
+
+<script type="text/javascript">
+
+    var frmvalidator  = new Validator("frmlogin");
+    frmvalidator.EnableOnPageErrorDisplay();
+    frmvalidator.EnableMsgsTogether();
+    frmvalidator.addValidation("uname","req","Please provide your name");
+
+    frmvalidator.addValidation("uphone","req","Please provide your phone number");
+
+
+	function validateNumber(evt) {
+		var e = evt || window.event;
+		var key = e.keyCode || e.which;
+
+		if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
+		// numbers   
+		key >= 48 && key <= 57 ||
+		// Numeric keypad
+		key >= 96 && key <= 105 ||
+		// Backspace and Tab and Enter
+		key == 8 || key == 9 || key == 13 ||
+		// Home and End
+		key == 35 || key == 36 ||
+		// left and right arrows
+		key == 37 || key == 39 ||
+		// Del and Ins
+		key == 46 || key == 45) {
+			// input is VALID
+		}
+		else {
+			// input is INVALID
+			e.returnValue = false;
+			if (e.preventDefault) e.preventDefault();
+		}
+	}
+	
+</script>
+
+</html>
